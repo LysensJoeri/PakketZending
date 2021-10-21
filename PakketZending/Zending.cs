@@ -12,8 +12,7 @@ namespace PakketZending
         private double gewicht = 0.0;
         private double kostprijs = 0.0;
         private double MeerprijsStreek = 0.0;
-
-        
+        private string resultaat;
 
         public Zending()
         {
@@ -27,8 +26,8 @@ namespace PakketZending
         /// Indien andere streek en gewicht >=10 Kg -> 17€ 
         /// Prijs onder 10 kilogram = € 5 prijs boven 10 kilogram is € 15
         /// Niet zelfde streek is prijs plus 2 euro
-        public double kostprijsberekening(double gewicht, bool streek)
-        {
+        public string kostprijsberekening(double gewicht, string beginZone, string eindZone)
+        {            
             if (gewicht < 10)
             {
                 kostprijs = 5.00;
@@ -42,7 +41,7 @@ namespace PakketZending
             {
                 kostprijs += 2.00;
             }
-            return gewicht;            
+            return resultaat;            
         }
 
         private bool Control_Pakket(Pakket p)
@@ -55,8 +54,10 @@ namespace PakketZending
             return true;
         }
 
-        public bool zoneControlle(string beginZone, string eindZone)
+        private bool zoneControlle(string beginZone, string eindZone)
         {
+            //vergelijk zone 1 met 2 substring(0, 1) 
+
             return true;
         }
 
