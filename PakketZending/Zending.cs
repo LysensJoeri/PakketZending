@@ -13,6 +13,8 @@ namespace PakketZending
         private double kostprijs = 0.0;
         private double MeerprijsStreek = 0.0;
 
+        
+
         public Zending()
         {
             //Controleer data
@@ -38,18 +40,27 @@ namespace PakketZending
             
             if(streek == false)
             {
-                kostprijs += ;
+                kostprijs += 2.00;
             }
-            return prijs;
+            return gewicht;            
         }
 
-        public bool Control_Pakket()
+        private bool Control_Pakket(Pakket p)
+        {
+            p.Get_Lengte();
+            p.Get_Breedte();
+            p.Get_Hoogte();
+            p.Get_Gewicht();
+            
+            return true;
+        }
+
+        public bool zoneControlle(string beginZone, string eindZone)
         {
             return true;
         }
 
-        public 
-
+        
         
     }
 }
