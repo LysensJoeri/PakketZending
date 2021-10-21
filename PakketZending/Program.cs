@@ -28,8 +28,13 @@ namespace PakketZending
                 Inv_Gewicht = Convert.ToDouble(Console.ReadLine().Replace(".", ","));
 
                 Pakket p = new Pakket(Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht);
-                
+                Zending zend = new Zending();
+                //if (zend.Control_Pakket(p))
+                if (zend.Control_Pakket() == true)
+                {
 
+                }
+                
 
                 Console.Write("Exit?: ");
                 keuze = Console.ReadLine();

@@ -17,5 +17,21 @@ namespace PakketZending
             Hoogte = Inv_Hoogte;
             Gewicht = Inv_Gewicht;
         }
+        public double Get_Lengte()
+        {
+            return Lengte;
+        }
+        public double Get_Hoogte()
+        {
+            return Hoogte;
+        }
+        public double Get_Breedte()
+        {
+            return Lengte;
+        }
+        public double Get_Gewicht()
+        {
+            return Gewicht;
+        }
     }
 }
