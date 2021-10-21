@@ -16,7 +16,7 @@ namespace PakketZending
             Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
             keuze = "";
 
-            while (keuze != "exit" )
+            while (keuze != "exit" && keuze != "y")
             {                
                 Console.WriteLine("Gelieve de volgende gegevens van het paketje even in te geven");
                 Console.Write("Lengte: ");
@@ -31,22 +31,12 @@ namespace PakketZending
                 Pakket p = new Pakket(Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht);
                 Zending zend = new Zending();
 
-                //if (zend.Control_Pakket(p) == true)
-                if (zend.Control_Pakket() == true)
-                {
-                    Console.Write("Zend Postocde: ");
-                    Zone1 = Console.ReadLine();
-                    Console.Write("Bestemming Postcode: ");
-                    Zone2 = Console.ReadLine();
-                   // ZelfdeStreek = zend.(Zone1, Zone2);
-                    //zend.kostprijsberekening(p.Get_Gewicht, ZelfdeStreek);
-                }
-                else
-                {
-                    Console.WriteLine("Dit pakketje is incorrect ingegeven. Gelieve dit even opnieuw te proberen.");
-                    continue;
-                }
-                
+                Console.Write("Zend Postocde: ");
+                Zone1 = Console.ReadLine();
+                Console.Write("Bestemming Postcode: ");
+                Zone2 = Console.ReadLine();
+                ZelfdeStreek = zend.(Zone1, Zone2);
+                Console.WriteLine(zend.kostprijsberekening(p, Zone1, Zone2));
 
                 Console.Write("Exit?: ");
                 keuze = Console.ReadLine();
