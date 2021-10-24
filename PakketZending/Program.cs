@@ -29,14 +29,19 @@ namespace PakketZending
                 Inv_Gewicht = Convert.ToDouble(Console.ReadLine().Replace(".", ","));
 
                 Pakket p = new Pakket(Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht);
-                Zending zend = new Zending();
+                //Zending zend = new Zending();
 
                 Console.Write("Zend Postocde: ");
                 Zone1 = Console.ReadLine();
                 Console.Write("Bestemming Postcode: ");
                 Zone2 = Console.ReadLine();
-                ZelfdeStreek = zend.(Zone1, Zone2);
-                Console.WriteLine(zend.kostprijsberekening(p, Zone1, Zone2));
+                //ZelfdeStreek = zend.(Zone1, Zone2);
+                //Console.WriteLine(zend.kostprijsberekening(p, Zone1, Zone2));
+                Zending zend = new Zending();
+                double gewicht = Inv_Gewicht;
+                string beginZone = Zone1;
+                string eindZone = Zone2;
+                zend.kostprijsberekening(gewicht, beginZone, eindZone);
 
                 Console.Write("Exit?: ");
                 keuze = Console.ReadLine();
