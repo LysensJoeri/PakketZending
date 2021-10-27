@@ -10,7 +10,7 @@ namespace PakketZending
     {
         static void Main(string[] args)
         {
-            bool ZelfdeStreek;
+            //bool ZelfdeStreek;
             string keuze, Zone1, Zone2;
             double Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht;
             Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
@@ -42,7 +42,7 @@ namespace PakketZending
                 string beginZone = Zone1;
                 string eindZone = Zone2;
                 zend.kostprijsberekening(gewicht, beginZone, eindZone);
-
+                
                 Console.Write("Exit?: ");
                 keuze = Console.ReadLine();
             }

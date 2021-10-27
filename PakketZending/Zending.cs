@@ -8,8 +8,14 @@ namespace PakketZending
 {
     public class Zending
     {
-        private double kostprijs;
+        private double kostprijsStreek_kleinerdanTien = 5.00;
+        private double kostprijsStreek_groterdanTien = 15.00;
+        private double kostprijsBuitenStreek = 2.00;
+        private double gewichtKleinderdan = 10.00;
         private string resultaat = "";
+        //public string beginZone = "";
+        //public string eindZone = "";
+        //public double gewicht = 0.00;
 
         public Zending()
         {
@@ -25,18 +31,20 @@ namespace PakketZending
         /// Niet zelfde streek is prijs plus 2 euro
         public string kostprijsberekening(double gewicht, string beginZone, string eindZone)
         {
-            if (gewicht < 10)
+
+            double kostprijs;
+            if (gewicht < gewichtKleinderdan)
             {
-                kostprijs = 5.00;
+                kostprijs = kostprijsStreek_kleinerdanTien;
             }
             else
             {
-                kostprijs = 15.00;
+                kostprijs = kostprijsStreek_groterdanTien;
             }
 
             if (beginZone.Substring(0, 1) != (eindZone.Substring(0, 1)))
             {
-                kostprijs += 2.00;
+                kostprijs += kostprijsBuitenStreek;
             }
             resultaat = Convert.ToString(kostprijs);
             return resultaat;
