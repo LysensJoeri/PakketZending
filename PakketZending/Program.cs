@@ -13,7 +13,7 @@ namespace PakketZending
             string keuze, Zone1, Zone2;
             double Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht;
             Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
-            keuze = "";
+            keuze = "test";
 
             //Loop tot Exit of Y (alle vormen toegestaan)
             while (!keuze.ToLower().Equals("exit") && !keuze.ToLower().Equals("y"))
