@@ -10,15 +10,17 @@ namespace PakketZending
     {
         public static void Main(string[] args)
         {
-            //bool ZelfdeStreek;
             string keuze, Zone1, Zone2;
             double Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht;
             Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
             keuze = "";
 
+            //Loop tot Exit of Y (alle vormen toegestaan)
             while (!keuze.ToLower().Equals("exit") && !keuze.ToLower().Equals("y"))
             {                
                 Console.WriteLine("Gelieve de volgende gegevens van het paketje even in te geven");
+                Console.WriteLine("Geldige Afmetingen :" );
+                Console.WriteLine("Lengte korter dan 0,5m / Breedte smaller dan 0,4m / Hoogte kleiner dan 0,6m ");
                 Console.Write("Lengte: ");
                 Inv_Lengte = CheckInputDouble(Console.ReadLine());
                 Console.Write("Breedte: ");
@@ -47,11 +49,13 @@ namespace PakketZending
 
         }
 
+        //Returns Double value na replace . -> , en convert to string
         public static double CheckInputDouble(string input)
         {
             double result=0d;
             try
             {
+                input = input.Replace("m", "");
                 input = input.Replace(".", ",");
                 result = Convert.ToDouble(input);
             }

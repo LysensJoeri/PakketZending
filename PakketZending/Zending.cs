@@ -18,10 +18,8 @@ namespace PakketZending
         private double LimitLengte = 0.5;
         private double LimitHoogte = 0.6;
         private double LimitBreedte = 0.4;
-        //public string beginZone = "";
-        //public string eindZone = "";
-        //public double gewicht = 0.00;
 
+        //Check of zone 1 en zone2 zelfde begin hebben.
         private bool StreekZelfde(string Zone1, string Zone2)
         {
             if(Zone1.Substring(0, 1).Equals(Zone2.Substring(0, 1)))
@@ -31,6 +29,9 @@ namespace PakketZending
             return false;
         }
         
+        //Vergelijk Val1 met Val2
+        //Val1 = Input klant
+        //Val2 = vooropgestelde waardes
         private bool CheckValue(double Val1, double Val2)
         {
             if(Val1 < Val2)
@@ -49,14 +50,14 @@ namespace PakketZending
         /// Niet zelfde streek is prijs plus 2 euro
         public string kostprijsberekening(Pakket p, string beginZone, string eindZone)
         {
+            // Indien alle 3 correct ga verder anders Else
             if (CheckValue(p.Get_Lengte(), LimitLengte) == true &&
                 CheckValue(p.Get_Breedte(), LimitBreedte) == true &&
                 CheckValue(p.Get_Hoogte(), LimitHoogte) == true)
             {
-
                 gewichtPakket = p.Get_Gewicht();
 
-
+                //Gewicht check 
                 if (gewichtPakket< gewichtKleinLimit)
                 {
                     kostprijs = kostprijsStreek_Kleingewicht;
@@ -70,12 +71,15 @@ namespace PakketZending
                 {
                     kostprijs += kostprijsBuitenStreek;
                 }
+
                 resultaat = "De kostprijs voor het versturen van dit pakket is: " + Convert.ToString(kostprijs);
             }
             else
             {
+                //FOUT maar beter
                 resultaat = "Waardes van het pakje zijn incorrect!!";
             }
+
             return resultaat;
         }
     }
