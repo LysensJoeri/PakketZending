@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PakketZending
 {
-    class Pakket
+    public class Pakket
     {
-        private double Lengte, Hoogte, Breedte, Gewicht;
+        private double Lengte=0D, Hoogte = 0D, Breedte = 0D, Gewicht = 0D;
 
         public Pakket(double Inv_Lengte, double Inv_Breedte, double Inv_Hoogte, double Inv_Gewicht)
         {
