@@ -11,39 +11,68 @@ namespace PakketZending
         public static void Main(string[] args)
         {
             string keuze, Zone1, Zone2;
+            Zending zend = new Zending();
             double Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht;
-            Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
-            keuze = "test";
+            Menu();
+            keuze = Console.ReadLine();
 
-            //Loop tot Exit of Y (alle vormen toegestaan)
-            while (!keuze.ToLower().Equals("exit") && !keuze.ToLower().Equals("y"))
+            //Loop tot 0 getypt word
+            while (keuze != "0")
             {
-                Console.WriteLine("Gelieve de volgende gegevens van het paketje even in te geven");
-                Console.WriteLine("Geldige Afmetingen :");
-                Console.WriteLine("Lengte korter dan 0,5m / Breedte smaller dan 0,4m / Hoogte kleiner dan 0,6m ");
-                Console.Write("Lengte: ");
-                Inv_Lengte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
-                Console.Write("Breedte: ");
-                Inv_Breedte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
-                Console.Write("Hoogte: ");
-                Inv_Hoogte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
-                Console.Write("Gewicht: ");
-                Inv_Gewicht = Hulpprogramma.CheckInputDouble(Console.ReadLine());
+                switch (keuze)
+                {
+                    case "1":
+                        Console.WriteLine();
+                        Console.WriteLine("Gelieve de volgende gegevens van het paketje even in te geven");
+                        Console.Write("Lengte: ");
+                        Inv_Lengte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
+                        Console.Write("Breedte: ");
+                        Inv_Breedte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
+                        Console.Write("Hoogte: ");
+                        Inv_Hoogte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
+                        Console.Write("Gewicht: ");
+                        Inv_Gewicht = Hulpprogramma.CheckInputDouble(Console.ReadLine());
+                        Pakket Pak = new Pakket(Inv_Lengte, Inv_Breedte, Inv_Hoogte, Inv_Gewicht);
+                        Console.WriteLine(zend.Voegpakkettoe(Pak));                       
+                        break;
 
-                Pakket p = new Pakket(Inv_Lengte, Inv_Breedte, Inv_Hoogte, Inv_Gewicht);
-                Zending zend = new Zending();
+                    case "2":                        
+                        Console.Write("Verstuur van: ");
+                        Zone1 = Console.ReadLine();
+                        Console.Write("Verstuur naar: ");
+                        Zone2 = Console.ReadLine();        
+                        Console.WriteLine(zend.Kostprijsberekening(Zone1, Zone2));
+                       /* Console.Write("Verzending voltooien? (y/n) :");
+                        keuze = Console.ReadLine();
+                        if(keuze.ToLower() == "y")
+                        {
+                            zend.Leegmakenlijst();
+                        }*/
+                        break;
 
-                Console.Write("Zend Postocde: ");
-                Zone1 = Console.ReadLine();
-                Console.Write("Bestemming Postcode: ");
-                Zone2 = Console.ReadLine();
-
-                Console.WriteLine(zend.kostprijsberekening(p, Zone1, Zone2));
-
-
-                Console.Write("Exit?: ");
+                    case "3":
+                        Console.WriteLine();
+                        Console.WriteLine(zend.ToonPakketjes());
+                        break;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Gelieve een correcte keuze te maken.");
+                        break;
+                }
+                Console.WriteLine();
+                Menu();
                 keuze = Console.ReadLine();
             }
+        }
+
+        public static void Menu()
+        {
+            Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
+            Console.WriteLine("1. maak een pakketje aan");
+            Console.WriteLine("2. Bereken prijd verzending");
+            Console.WriteLine("3. Toon pakketjes");
+            Console.WriteLine("0. Stoppen");
+            Console.Write("Keuze : ");
         }
     }
 }

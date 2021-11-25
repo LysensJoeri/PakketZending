@@ -12,12 +12,15 @@ namespace PakketZending
         private double kostprijsStreek_grootgewicht = 15.00;
         private double kostprijsBuitenStreek = 2.00;
         private double gewichtKleinLimit = 10.00;
-        private string resultaat = "";
-        private double kostprijs = 0D;
-        private double gewichtPakket = 0D;
         private double LimitLengte = 0.5;
         private double LimitHoogte = 0.6;
         private double LimitBreedte = 0.4;
+        private List<Pakket> Pakketjes;
+
+        public Zending()
+        {
+            Pakketjes = new List<Pakket>();
+        }
 
         //Check of zone 1 en zone2 zelfde begin hebben.
         private bool StreekZelfde(string Zone1, string Zone2)
@@ -41,6 +44,44 @@ namespace PakketZending
             return false;
         }
 
+        //Toevoegen van pakketje als het aan de voorwaarden voldoet.
+        public string Voegpakkettoe (Pakket P)
+        {
+            // Indien alle 3 correct ga verder anders Else
+            if (CheckValue(P.Get_Lengte(), LimitLengte) == true &&
+                CheckValue(P.Get_Breedte(), LimitBreedte) == true &&
+                CheckValue(P.Get_Hoogte(), LimitHoogte) == true)
+            {
+                Pakketjes.Add(P);
+                return "Pakket is succesvol toegevoegd";
+            }
+            else
+            {
+                return "Pakket is niet toegevoegd";
+            }
+        }
+
+        //Oplijsting van pakketjes
+        public string ToonPakketjes()
+        {
+            string Paklijst = "";
+            int paknr = 0;
+            foreach (var P in Pakketjes)
+            {
+                paknr++;
+                Paklijst += Convert.ToString("Pakje" + paknr + " " + P.Get_Breedte() + "m breed, " + P.Get_Lengte() + "m lang, " + P.Get_Hoogte() + "m hoog, " + P.Get_Gewicht() + "Kg zwaar\n");
+            }
+
+                return Paklijst;
+        }
+
+        //Lijst leeg maken
+      /*  public void Leegmakenlijst()
+        {
+            Pakketjes.Clear();
+        }
+        */
+
         /// <summary>
         /// Indien zelfde streek en gewicht < 10Kg -> 5€ 
         /// Indien zelfde streek en gewicht >=10KG -> 15€ 
@@ -48,38 +89,30 @@ namespace PakketZending
         /// Indien andere streek en gewicht >=10 Kg -> 17€ 
         /// Prijs onder 10 kilogram = € 5 prijs boven 10 kilogram is € 15
         /// Niet zelfde streek is prijs plus 2 euro
-        public string kostprijsberekening(Pakket p, string beginZone, string eindZone)
+
+        public string Kostprijsberekening(string beginZone, string eindZone)
         {
-            // Indien alle 3 correct ga verder anders Else
-            if (CheckValue(p.Get_Lengte(), LimitLengte) == true &&
-                CheckValue(p.Get_Breedte(), LimitBreedte) == true &&
-                CheckValue(p.Get_Hoogte(), LimitHoogte) == true)
+            double kostprijs = 0D, gewichtPakket = 0D;
+            string resultaat = "";
+            foreach (var P in Pakketjes)
             {
-                gewichtPakket = p.Get_Gewicht();
+                    gewichtPakket = P.Get_Gewicht();
+                    //Gewicht check 
+                    if (gewichtPakket < gewichtKleinLimit)
+                    {
+                        kostprijs += kostprijsStreek_Kleingewicht;
+                    }
+                    else
+                    {
+                        kostprijs += kostprijsStreek_grootgewicht;
+                    }
 
-                //Gewicht check 
-                if (gewichtPakket< gewichtKleinLimit)
-                {
-                    kostprijs = kostprijsStreek_Kleingewicht;
-                }
-                else
-                {
-                    kostprijs = kostprijsStreek_grootgewicht;
-                }
-
-                if (StreekZelfde(beginZone,eindZone) == false)
-                {
-                    kostprijs += kostprijsBuitenStreek;
-                }
-
-                resultaat = "De kostprijs voor het versturen van dit pakket is: " + Convert.ToString(kostprijs);
+                    if (StreekZelfde(beginZone, eindZone) == false)
+                    {
+                        kostprijs += kostprijsBuitenStreek;
+                    }
             }
-            else
-            {
-                //FOUT maar beter
-                resultaat = "Waardes van het pakje zijn incorrect!!";
-            }
-
+            resultaat = "Kostprijs is " + Convert.ToString(kostprijs) + "€." + "\n";            
             return resultaat;
         }
     }
