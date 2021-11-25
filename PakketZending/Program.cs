@@ -10,9 +10,18 @@ namespace PakketZending
     {
         public static void Main(string[] args)
         {
-            string keuze, Zone1, Zone2;
-            Zending zend = new Zending();
+            string keuze, Zone1, Zone2, Leverancier = ""; 
             double Inv_Lengte,Inv_Breedte,Inv_Hoogte,Inv_Gewicht;
+            
+            Bpost Bpost = new Bpost();
+            PostNL PostNL = new PostNL();
+
+            while (Leverancier != "Bpost" && Leverancier != "PostNL")
+            {
+                Console.WriteLine("Kies uw leverancier (Bpost / PostNL): ");
+                Leverancier = Console.ReadLine();
+            }
+
             Menu();
             keuze = Console.ReadLine();
 
@@ -32,27 +41,41 @@ namespace PakketZending
                         Inv_Hoogte = Hulpprogramma.CheckInputDouble(Console.ReadLine());
                         Console.Write("Gewicht: ");
                         Inv_Gewicht = Hulpprogramma.CheckInputDouble(Console.ReadLine());
-                        Pakket Pak = new Pakket(Inv_Lengte, Inv_Breedte, Inv_Hoogte, Inv_Gewicht);
-                        Console.WriteLine(zend.Voegpakkettoe(Pak));                       
+                        Pakket Pak = new Pakket(Inv_Lengte, Inv_Breedte, Inv_Hoogte, Inv_Gewicht);                        
+                        if (Leverancier == "Bpost")
+                        {
+                            Console.WriteLine(Bpost.Voegpakkettoe(Pak));
+                        }                       
+                        else if(Leverancier == "PostNL")
+                        {
+                            Console.WriteLine(PostNL.Voegpakkettoe(Pak));
+                        }
                         break;
 
-                    case "2":                        
+                    case "2":
                         Console.Write("Verstuur van: ");
                         Zone1 = Console.ReadLine();
                         Console.Write("Verstuur naar: ");
-                        Zone2 = Console.ReadLine();        
-                        Console.WriteLine(zend.Kostprijsberekening(Zone1, Zone2));
-                       /* Console.Write("Verzending voltooien? (y/n) :");
-                        keuze = Console.ReadLine();
-                        if(keuze.ToLower() == "y")
+                        Zone2 = Console.ReadLine();
+                        if (Leverancier == "Bpost")
                         {
-                            zend.Leegmakenlijst();
-                        }*/
+                            Console.WriteLine(Bpost.Kostprijsberekening(Zone1, Zone2));
+                        }
+                        else if (Leverancier == "PostNL")
+                        {
+                            Console.WriteLine(PostNL.Kostprijsberekening(Zone1, Zone2));
+                        }
                         break;
 
                     case "3":
                         Console.WriteLine();
-                        Console.WriteLine(zend.ToonPakketjes());
+                        if(Leverancier == "Bpost")
+                        {
+                            Console.WriteLine(Bpost.ToonPakketjes());
+                        }else if(Leverancier == "PostNL")
+                        {
+                            Console.WriteLine(PostNL.ToonPakketjes());
+                        }
                         break;
                     default:
                         Console.WriteLine();
@@ -68,7 +91,7 @@ namespace PakketZending
         public static void Menu()
         {
             Console.WriteLine("Welkom bij de post, indien je wilt stoppen type exit.");
-            Console.WriteLine("1. maak een pakketje aan");
+            Console.WriteLine("1. Maak een pakketje aan");
             Console.WriteLine("2. Bereken prijd verzending");
             Console.WriteLine("3. Toon pakketjes");
             Console.WriteLine("0. Stoppen");

@@ -10,28 +10,28 @@ namespace PakketZending
     {
         private double Lengte=0D, Hoogte = 0D, Breedte = 0D, Gewicht = 0D;
 
-        public Pakket(double Inv_Lengte, double Inv_Breedte, double Inv_Hoogte, double Inv_Gewicht)
+        public Pakket(double Lengte, double Breedte, double Hoogte, double Gewicht)
         {
-            Lengte = Inv_Lengte;
-            Breedte = Inv_Breedte;
-            Hoogte = Inv_Hoogte;
-            Gewicht = Inv_Gewicht;
+            this.Lengte = Lengte;
+            this.Breedte = Breedte;
+            this.Hoogte = Hoogte;
+            this.Gewicht = Gewicht;
         }
         public double Get_Lengte()
         {
-            return Lengte;
+            return this.Lengte;
         }
         public double Get_Hoogte()
         {
-            return Hoogte;
+            return this.Hoogte;
         }
         public double Get_Breedte()
         {
-            return Lengte;
+            return this.Lengte;
         }
         public double Get_Gewicht()
         {
-            return Gewicht;
+            return this.Gewicht;
         }
     }
 }

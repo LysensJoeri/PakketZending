@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PakketZending
 {
-    public class Zending
+    class PostNL
     {
         private double kostprijsStreek_Kleingewicht = 5.00;
         private double kostprijsStreek_grootgewicht = 15.00;
@@ -17,7 +17,7 @@ namespace PakketZending
         private double LimitBreedte = 0.4;
         private List<Pakket> Pakketjes;
 
-        public Zending()
+        public PostNL()
         {
             Pakketjes = new List<Pakket>();
         }
@@ -25,19 +25,19 @@ namespace PakketZending
         //Check of zone 1 en zone2 zelfde begin hebben.
         private bool StreekZelfde(string Zone1, string Zone2)
         {
-            if(Zone1.Substring(0, 1).Equals(Zone2.Substring(0, 1)))
+            if (Zone1.Substring(0, 1).Equals(Zone2.Substring(0, 1)))
             {
                 return true;
             }
             return false;
         }
-        
+
         //Vergelijk Val1 met Val2
         //Val1 = Input klant
         //Val2 = vooropgestelde waardes
         private bool CheckValue(double Val1, double Val2)
         {
-            if(Val1 < Val2)
+            if (Val1 < Val2)
             {
                 return true;
             }
@@ -45,7 +45,7 @@ namespace PakketZending
         }
 
         //Toevoegen van pakketje als het aan de voorwaarden voldoet.
-        public string Voegpakkettoe (Pakket P)
+        public string Voegpakkettoe(Pakket P)
         {
             // Indien alle 3 correct ga verder anders Else
             if (CheckValue(P.Get_Lengte(), LimitLengte) == true &&
@@ -69,18 +69,13 @@ namespace PakketZending
             foreach (var P in Pakketjes)
             {
                 paknr++;
-                Paklijst += Convert.ToString("Pakje" + paknr + " " + P.Get_Breedte() + "m breed, " + P.Get_Lengte() + "m lang, " + P.Get_Hoogte() + "m hoog, " + P.Get_Gewicht() + "Kg zwaar\n");
+                Paklijst += Convert.ToString("Pakje" + paknr + " " + P.Get_Breedte() 
+                    + "m breed, " + P.Get_Lengte() + "m lang, " + P.Get_Hoogte() 
+                    + "m hoog, " + P.Get_Gewicht() + "Kg zwaar\n");
             }
 
-                return Paklijst;
+            return Paklijst;
         }
-
-        //Lijst leeg maken
-      /*  public void Leegmakenlijst()
-        {
-            Pakketjes.Clear();
-        }
-        */
 
         /// <summary>
         /// Indien zelfde streek en gewicht < 10Kg -> 5€ 
@@ -96,23 +91,23 @@ namespace PakketZending
             string resultaat = "";
             foreach (var P in Pakketjes)
             {
-                    gewichtPakket = P.Get_Gewicht();
-                    //Gewicht check 
-                    if (gewichtPakket < gewichtKleinLimit)
-                    {
-                        kostprijs += kostprijsStreek_Kleingewicht;
-                    }
-                    else
-                    {
-                        kostprijs += kostprijsStreek_grootgewicht;
-                    }
+                gewichtPakket = P.Get_Gewicht();
+                //Gewicht check 
+                if (gewichtPakket < gewichtKleinLimit)
+                {
+                    kostprijs += kostprijsStreek_Kleingewicht;
+                }
+                else
+                {
+                    kostprijs += kostprijsStreek_grootgewicht;
+                }
 
-                    if (StreekZelfde(beginZone, eindZone) == false)
-                    {
-                        kostprijs += kostprijsBuitenStreek;
-                    }
+                if (StreekZelfde(beginZone, eindZone) == false)
+                {
+                    kostprijs += kostprijsBuitenStreek;
+                }
             }
-            resultaat = "Kostprijs is " + Convert.ToString(kostprijs) + "€." + "\n";            
+            resultaat = "Kostprijs is " + Convert.ToString(kostprijs) + "€." + "\n";
             return resultaat;
         }
     }
